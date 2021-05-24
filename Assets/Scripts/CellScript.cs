@@ -24,6 +24,7 @@ public class CellScript : MonoBehaviour
         get => isActive;
         set => isActive = value;
     }
+    private bool isProducing;
 
     public string CellOwner
     {
@@ -31,6 +32,11 @@ public class CellScript : MonoBehaviour
         set => cellOwner = value;
     }
 
+    public int CellCount
+    {
+        get => cellCount;
+        set => cellCount = value;
+    }
 
     void Start()
     {
@@ -43,7 +49,8 @@ public class CellScript : MonoBehaviour
 
         cellCount = 10;
 
-        StartCoroutine(GenerateCells());
+        if(cellOwner!="")
+            StartCoroutine(GenerateCells());
     }
 
     private void DefineCellType()
@@ -85,6 +92,7 @@ public class CellScript : MonoBehaviour
 
     IEnumerator GenerateCells()
     {
+       isProducing = true;
         while (true)
         {
             if (cellCount < cellMax)
@@ -96,14 +104,17 @@ public class CellScript : MonoBehaviour
         }
     }
 
-    public void CellHit(string subcellOwner)
+    public void CellHit(string subcellOwner, int damage)
     {
-        if (cellCount == 1)
+        if (cellCount < 2)
         {
             cellOwner = subcellOwner;
             DefineCellColor();
+            if(!isProducing)
+                StartCoroutine(GenerateCells());
         }
 
-        cellCount--;
+        cellCount-=damage;
+        cellText.text = cellCount.ToString();
     }
 }

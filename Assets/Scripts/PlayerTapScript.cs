@@ -65,6 +65,17 @@ public class PlayerTapScript : MonoBehaviour
                     activeCells.Add(collision.gameObject);
                 }
             }
+
+            else if(activeCells.Count != 0)
+            {
+                foreach (GameObject cell in activeCells)
+                {
+                    collision.gameObject.GetComponent<CellScript>().CellHit("Green", cell.GetComponent<CellScript>().CellCount / 2);
+                    cell.GetComponent<CellScript>().CellCount = cell.GetComponent<CellScript>().CellCount / 2;
+                }
+
+                ResetActiveCells();
+            }
         }
     }
 }
