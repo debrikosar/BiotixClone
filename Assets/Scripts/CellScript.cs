@@ -19,6 +19,19 @@ public class CellScript : MonoBehaviour
     private SpriteRenderer cellFillingSpriteRenderer;
     private TextMeshPro cellText;
 
+    public bool IsActive
+    {
+        get => isActive;
+        set => isActive = value;
+    }
+
+    public string CellOwner
+    {
+        get => cellOwner;
+        set => cellOwner = value;
+    }
+
+
     void Start()
     {
         cellSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -81,5 +94,16 @@ public class CellScript : MonoBehaviour
             }
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    public void CellHit(string subcellOwner)
+    {
+        if (cellCount == 1)
+        {
+            cellOwner = subcellOwner;
+            DefineCellColor();
+        }
+
+        cellCount--;
     }
 }
