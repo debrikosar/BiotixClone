@@ -13,9 +13,15 @@ public class PlayerTapScript : MonoBehaviour
 
     private CircleCollider2D circleCollider;
 
+    private int collisionsCheckPre;
+    private int collisionsCheckPost;
+
     // Start is called before the first frame update
     void Start()
     {
+        collisionsCheckPre = 0;
+        collisionsCheckPost = 0;
+
         activeCells = new List<GameObject>();
         circleCollider = gameObject.GetComponent<CircleCollider2D>();
     }
@@ -29,18 +35,19 @@ public class PlayerTapScript : MonoBehaviour
             touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
             transform.position = Vector2.Lerp(transform.position, touchPosition, moveSpeed);
             if(!circleCollider.enabled)
-                circleCollider.enabled = true;
+                circleCollider.enabled = true;       
+            
         }
         else
         {
-            if(activeCells.Count != 0)
-            {
-                ResetActiveCells();
-            }
-            circleCollider.enabled = false;
-
             if (circleCollider.enabled)
+            {
+                if (collisionsCheckPost == collisionsCheckPre)
+                    ResetActiveCells();
+                else
+                    collisionsCheckPost = collisionsCheckPre;
                 circleCollider.enabled = false;
+            }
         }
     }
 
@@ -50,6 +57,9 @@ public class PlayerTapScript : MonoBehaviour
             cell.GetComponent<CellScript>().IsActive = false;
 
         activeCells = new List<GameObject>();
+
+        collisionsCheckPre = 0;
+        collisionsCheckPost = 0;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -63,10 +73,12 @@ public class PlayerTapScript : MonoBehaviour
                 {
                     collision.gameObject.GetComponent<CellScript>().IsActive = true;
                     activeCells.Add(collision.gameObject);
+
+                    collisionsCheckPre = activeCells.Count;
                 }
             }
 
-            else if(activeCells.Count != 0)
+            else if(activeCells.Count > 0)
             {
                 foreach (GameObject cell in activeCells)
                 {
