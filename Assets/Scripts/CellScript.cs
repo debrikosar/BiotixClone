@@ -11,7 +11,9 @@ public class CellScript : MonoBehaviour
     private string cellOwner;
 
     private int cellMax;
-    public int cellCount;
+    private int cellCount;
+
+    private bool isActive;
 
     private SpriteRenderer cellSpriteRenderer;
     private SpriteRenderer cellFillingSpriteRenderer;
@@ -37,10 +39,14 @@ public class CellScript : MonoBehaviour
         {
             case "Big":
                 cellSpriteRenderer.transform.localScale = new Vector2(1.5f, 1.5f);
-                cellMax = 20;
+                cellMax = 60;
+                break;
+            case "Medium":
+                cellSpriteRenderer.transform.localScale = new Vector2(1.2f, 1.2f);
+                cellMax = 40;
                 break;
             default:
-                cellMax = 10;
+                cellMax = 20;
                 break;
         }
     }
