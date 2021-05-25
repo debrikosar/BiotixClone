@@ -45,6 +45,8 @@ public class CellsStorageScript : MonoBehaviour
                 else
                     SceneManager.LoadScene(2);
             }
+            if(cellGroup.CellGroupOwner == "Green" && cellGroup.GetCellGroupSize() == 0)
+                SceneManager.LoadScene(2);
         }
     }
 
@@ -62,7 +64,7 @@ public class CellsStorageScript : MonoBehaviour
 
         while (true)
         {
-            timer = Random.Range(0.3f, 3f);
+            timer = Random.Range(1f, 3f);
 
             foreach (CellGroup cellGroup in cellGroups)
             {

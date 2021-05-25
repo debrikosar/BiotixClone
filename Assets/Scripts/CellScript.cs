@@ -12,6 +12,7 @@ public class CellScript : MonoBehaviour
     private string cellOwner;
 
     private int cellMax;
+    [SerializeField]
     private int cellCount;
 
     private bool isActive;
@@ -52,12 +53,12 @@ public class CellScript : MonoBehaviour
         cellBorderSpriteRenderer = cellBorder.GetComponent<SpriteRenderer>();
         cellText = gameObject.transform.Find("CellFilling").transform.Find("CellText").GetComponent<TextMeshPro>();
 
-        cellCount = 10;
-
         DefineCellType();
         DefineCellColor();
 
-        if(cellOwner!="")
+        UpdateCellText();
+
+        if (cellOwner!="")
             StartCoroutine(GenerateCells());
     }
 
@@ -121,10 +122,7 @@ public class CellScript : MonoBehaviour
 
         cellCount-=damage;
 
-        if (cellCount != 0)
-            UpdateCellText();
-        else
-            cellText.text = "";
+        UpdateCellText();
     }
 
     public void ChangeCellOwner(string subcellOwner)
@@ -139,9 +137,10 @@ public class CellScript : MonoBehaviour
     
     public void UpdateCellText()
     {
-        cellText.text = cellCount.ToString();
-        if(!isActive)
-            cellBorderSpriteRenderer.transform.localScale = new Vector2(0f, 0f);
+        if (cellCount != 0)
+            UpdateCellText();
+        else
+            cellText.text = "";
     }
 
     public void ActivateCell()
