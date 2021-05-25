@@ -19,6 +19,10 @@ public class CellScript : MonoBehaviour
 
     private SpriteRenderer cellSpriteRenderer;
     private SpriteRenderer cellFillingSpriteRenderer;
+
+    private GameObject cellBorder;
+    private SpriteRenderer cellBorderSpriteRenderer;
+
     private TextMeshPro cellText;
 
     public static event Action<GameObject, string, string> OnChangeCellOwner;
@@ -41,10 +45,12 @@ public class CellScript : MonoBehaviour
         set => cellCount = value;
     }
 
-    void Start()
+    private void Start()
     {
         cellSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         cellFillingSpriteRenderer = gameObject.transform.Find("CellFilling").GetComponent<SpriteRenderer>();
+        cellBorder = gameObject.transform.Find("CellBorder").gameObject;
+        cellBorderSpriteRenderer = cellBorder.GetComponent<SpriteRenderer>();
         cellText = gameObject.transform.Find("CellFilling").transform.Find("CellText").GetComponent<TextMeshPro>();
 
         DefineCellType();
@@ -135,5 +141,26 @@ public class CellScript : MonoBehaviour
     public void UpdateCellText()
     {
         cellText.text = cellCount.ToString();
+    }
+
+    public void ActivateCell()
+    {
+        isActive = true;
+        StartCoroutine(AnimateActivation());
+    }
+
+    public void DeactivateCell()
+    {
+        isActive = false;
+        cellBorderSpriteRenderer.transform.localScale = new Vector2(0, 0);
+    }
+
+    IEnumerator AnimateActivation()
+    {
+        for (float i = 0; i < cellSpriteRenderer.transform.localScale.x*0.4f; i += (cellSpriteRenderer.transform.localScale.x * 0.4f) / 10)
+        {
+            cellBorderSpriteRenderer.transform.localScale = new Vector2(cellBorderSpriteRenderer.transform.localScale.x + i, cellBorderSpriteRenderer.transform.localScale.y + i);
+            yield return new WaitForSeconds(0.03f);
+        }              
     }
 }

@@ -57,7 +57,7 @@ public class PlayerTapScript : MonoBehaviour
     private void ResetActiveCells()
     {
         foreach(GameObject cell in activeCells)
-            cell.GetComponent<CellScript>().IsActive = false;
+            cell.GetComponent<CellScript>().DeactivateCell();
 
         activeCells = new List<GameObject>();
 
@@ -75,7 +75,7 @@ public class PlayerTapScript : MonoBehaviour
             {
                 if (!tempCollisionCellScript.IsActive)
                 {
-                    tempCollisionCellScript.IsActive = true;
+                    tempCollisionCellScript.ActivateCell();
                     activeCells.Add(collision.gameObject);
 
                     collisionsCheckPre = activeCells.Count;
