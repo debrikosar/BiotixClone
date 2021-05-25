@@ -16,7 +16,6 @@ public class CellScript : MonoBehaviour
 
     private bool isActive;
     private bool isProducing;
-    private bool isTarget;
 
     private SpriteRenderer cellSpriteRenderer;
     private SpriteRenderer cellFillingSpriteRenderer;
@@ -28,12 +27,6 @@ public class CellScript : MonoBehaviour
     {
         get => isActive;
         set => isActive = value;
-    }
-
-    public bool IsTarget
-    {
-        get => isTarget;
-        set => isTarget = value;
     }
 
     public string CellOwner
@@ -137,4 +130,6 @@ public class CellScript : MonoBehaviour
         if (!isProducing)
             StartCoroutine(GenerateCells());        
     }
+
+    
 }

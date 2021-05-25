@@ -33,6 +33,7 @@ public class CellGroup
         cellGroup.Add(newCell);
     }
 
+    //Danger
     public void RemoveCellFromGroup(GameObject removedCell)
     {
         cellGroup.Remove(removedCell);

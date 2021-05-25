@@ -69,11 +69,13 @@ public class PlayerTapScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Cell")
         {
-            if(collision.gameObject.GetComponent<CellScript>().CellOwner == "Green")
+            CellScript tempCollisionCellScript = collision.gameObject.GetComponent<CellScript>();
+
+            if(tempCollisionCellScript.CellOwner == "Green")
             {
-                if (!collision.gameObject.GetComponent<CellScript>().IsActive)
+                if (!tempCollisionCellScript.IsActive)
                 {
-                    collision.gameObject.GetComponent<CellScript>().IsActive = true;
+                    tempCollisionCellScript.IsActive = true;
                     activeCells.Add(collision.gameObject);
 
                     collisionsCheckPre = activeCells.Count;
@@ -82,19 +84,34 @@ public class PlayerTapScript : MonoBehaviour
 
             else if(activeCells.Count > 0)
             {
+                CellScript tempCellScript;
                 foreach (GameObject cell in activeCells)
                 {
-                    collision.gameObject.GetComponent<CellScript>().IsTarget = true;
-                    GameObject instance = Instantiate(subcellPrefab, cell.transform.position, Quaternion.identity);
-                    instance.GetComponent<SubcellScript>().StartAttack(collision.gameObject.transform.position);
-                    instance.GetComponent<SubcellScript>().SubcellOwner = "Green";
+                    tempCellScript = cell.GetComponent<CellScript>();
+                    //add target removal & amount of subcells
+
+                    StartCoroutine(SubcellSpawning(tempCellScript.CellCount / 2, cell.transform.position, collision.gameObject));
 
                     //collision.gameObject.GetComponent<CellScript>().CellHit("Green", cell.GetComponent<CellScript>().CellCount / 2);
-                    //cell.GetComponent<CellScript>().CellCount = cell.GetComponent<CellScript>().CellCount / 2;
+                    tempCellScript.CellCount = tempCellScript.CellCount / 2;
                 }
 
                 ResetActiveCells();
             }
         }
+    }
+
+    IEnumerator SubcellSpawning(float cellCount, Vector2 subcellPosition, GameObject subcellDestination)
+    {
+        for (var i = 0; i < cellCount; i++)
+        {
+            GameObject instance = Instantiate(subcellPrefab, subcellPosition, Quaternion.identity);
+            instance.GetComponent<SubcellScript>().SubcellTarget = subcellDestination;
+            instance.GetComponent<SubcellScript>().StartAttack(subcellDestination.transform.position);
+            instance.GetComponent<SubcellScript>().SubcellOwner = "Green";
+
+            yield return new WaitForSeconds(0.03f);
+        }
+
     }
 }

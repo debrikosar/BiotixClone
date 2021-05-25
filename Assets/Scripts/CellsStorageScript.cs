@@ -41,4 +41,9 @@ public class CellsStorageScript : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        CellScript.OnChangeCellOwner -= RecountCells;
+    }
 }
