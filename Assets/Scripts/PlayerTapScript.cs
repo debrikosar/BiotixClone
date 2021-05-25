@@ -16,6 +16,9 @@ public class PlayerTapScript : MonoBehaviour
     private int collisionsCheckPre;
     private int collisionsCheckPost;
 
+    [SerializeField]
+    GameObject subcellPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,7 +67,6 @@ public class PlayerTapScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("boo");
         if (collision.gameObject.tag == "Cell")
         {
             if(collision.gameObject.GetComponent<CellScript>().CellOwner == "Green")
@@ -82,8 +84,13 @@ public class PlayerTapScript : MonoBehaviour
             {
                 foreach (GameObject cell in activeCells)
                 {
-                    collision.gameObject.GetComponent<CellScript>().CellHit("Green", cell.GetComponent<CellScript>().CellCount / 2);
-                    cell.GetComponent<CellScript>().CellCount = cell.GetComponent<CellScript>().CellCount / 2;
+                    collision.gameObject.GetComponent<CellScript>().IsTarget = true;
+                    GameObject instance = Instantiate(subcellPrefab, cell.transform.position, Quaternion.identity);
+                    instance.GetComponent<SubcellScript>().StartAttack(collision.gameObject.transform.position);
+                    instance.GetComponent<SubcellScript>().SubcellOwner = "Green";
+
+                    //collision.gameObject.GetComponent<CellScript>().CellHit("Green", cell.GetComponent<CellScript>().CellCount / 2);
+                    //cell.GetComponent<CellScript>().CellCount = cell.GetComponent<CellScript>().CellCount / 2;
                 }
 
                 ResetActiveCells();

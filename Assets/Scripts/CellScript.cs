@@ -14,6 +14,8 @@ public class CellScript : MonoBehaviour
     private int cellCount;
 
     private bool isActive;
+    private bool isProducing;
+    private bool isTarget;
 
     private SpriteRenderer cellSpriteRenderer;
     private SpriteRenderer cellFillingSpriteRenderer;
@@ -24,7 +26,12 @@ public class CellScript : MonoBehaviour
         get => isActive;
         set => isActive = value;
     }
-    private bool isProducing;
+
+    public bool IsTarget
+    {
+        get => isTarget;
+        set => isTarget = value;
+    }
 
     public string CellOwner
     {
@@ -115,6 +122,9 @@ public class CellScript : MonoBehaviour
         }
 
         cellCount-=damage;
-        cellText.text = cellCount.ToString();
+        if (cellCount != 0)
+            cellText.text = cellCount.ToString();
+        else
+            cellText.text = "";
     }
 }
