@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,9 @@ public class CellsStorageScript : MonoBehaviour
     private List<GameObject> cellStorage;
 
     private List<CellGroup> cellGroups;
+
+    [SerializeField]
+    private GameObject subcellPrefab;
 
     private void Start()
     {
@@ -23,6 +27,8 @@ public class CellsStorageScript : MonoBehaviour
         }
 
         CellScript.OnChangeCellOwner += RecountCells;
+
+        StartCoroutine(EnemyLogic());
     }
 
     public void RecountCells(GameObject cell, string cellOldOwner, string cellNewOwner)
@@ -45,5 +51,56 @@ public class CellsStorageScript : MonoBehaviour
     private void OnDestroy()
     {
         CellScript.OnChangeCellOwner -= RecountCells;
+    }
+
+    IEnumerator EnemyLogic()
+    {
+        GameObject randomAttacker;
+        GameObject randomDefender;
+        List<GameObject> targetGroup;
+        float timer;
+
+        while (true)
+        {
+            timer = Random.Range(0.3f, 3f);
+
+            foreach (CellGroup cellGroup in cellGroups)
+            {
+                if (cellGroup.CellGroupOwner != "Green" && cellGroup.CellGroupOwner != "")
+                {
+                    randomAttacker = cellGroup.CellGroupList[Random.Range(0, cellGroup.CellGroupList.Count)];
+
+                    switch(Random.Range(0, 2))
+                    {
+                        case 0:
+                            targetGroup = cellGroups.Find(item => item.CellGroupOwner == "Green").CellGroupList;
+                            randomDefender = targetGroup[Random.Range(0, targetGroup.Count)];
+                            break;
+                        default:
+                            targetGroup = cellGroups.Find(item => item.CellGroupOwner == "").CellGroupList;
+                            randomDefender = targetGroup[Random.Range(0, targetGroup.Count)];
+                            break;
+                    }
+
+                    StartCoroutine(SubcellSpawning(randomAttacker.GetComponent<CellScript>().CellCount/2, randomAttacker.transform.position, randomDefender, cellGroup.CellGroupOwner));
+                    randomAttacker.GetComponent<CellScript>().CellCount = randomAttacker.GetComponent<CellScript>().CellCount / 2;
+                }
+            }
+            yield return new WaitForSeconds(timer);
+        }
+    }
+
+    IEnumerator SubcellSpawning(float cellCount, Vector2 subcellPosition, GameObject subcellDestination, string cellOwner)
+    {
+        for (var i = 0; i < cellCount; i++)
+        {
+            GameObject instance = Instantiate(subcellPrefab, subcellPosition, Quaternion.identity);
+            instance.GetComponent<SubcellScript>().SubcellTarget = subcellDestination;
+            instance.GetComponent<SubcellScript>().StartAttack(subcellDestination.transform.position);
+            instance.GetComponent<SubcellScript>().SubcellOwner = cellOwner;
+
+            yield return new WaitForSeconds(0.03f);
+        }
+
     }
 }

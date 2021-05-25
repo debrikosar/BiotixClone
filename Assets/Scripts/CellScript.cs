@@ -30,7 +30,6 @@ public class CellScript : MonoBehaviour
     public bool IsActive
     {
         get => isActive;
-        set => isActive = value;
     }
 
     public string CellOwner
@@ -53,10 +52,10 @@ public class CellScript : MonoBehaviour
         cellBorderSpriteRenderer = cellBorder.GetComponent<SpriteRenderer>();
         cellText = gameObject.transform.Find("CellFilling").transform.Find("CellText").GetComponent<TextMeshPro>();
 
+        cellCount = 10;
+
         DefineCellType();
         DefineCellColor();
-
-        cellCount = 10;
 
         if(cellOwner!="")
             StartCoroutine(GenerateCells());
@@ -141,6 +140,8 @@ public class CellScript : MonoBehaviour
     public void UpdateCellText()
     {
         cellText.text = cellCount.ToString();
+        if(!isActive)
+            cellBorderSpriteRenderer.transform.localScale = new Vector2(0f, 0f);
     }
 
     public void ActivateCell()
@@ -152,15 +153,25 @@ public class CellScript : MonoBehaviour
     public void DeactivateCell()
     {
         isActive = false;
-        cellBorderSpriteRenderer.transform.localScale = new Vector2(0, 0);
+        StopCoroutine(AnimateActivation());
+        cellBorderSpriteRenderer.transform.localScale = new Vector2(0f, 0f);
     }
 
     IEnumerator AnimateActivation()
     {
-        for (float i = 0; i < cellSpriteRenderer.transform.localScale.x*0.4f; i += (cellSpriteRenderer.transform.localScale.x * 0.4f) / 10)
+        float targetSize = cellFillingSpriteRenderer.transform.localScale.x * 0.050f;
+        for (float i = 0; i < targetSize; i += (targetSize) / 10)
         {
-            cellBorderSpriteRenderer.transform.localScale = new Vector2(cellBorderSpriteRenderer.transform.localScale.x + i, cellBorderSpriteRenderer.transform.localScale.y + i);
-            yield return new WaitForSeconds(0.03f);
+            if (isActive)
+            {
+                cellBorderSpriteRenderer.transform.localScale = new Vector2(cellBorderSpriteRenderer.transform.localScale.x + i, cellBorderSpriteRenderer.transform.localScale.y + i);
+                yield return new WaitForSeconds(0.02f);
+            }
+            else
+            {
+                cellBorderSpriteRenderer.transform.localScale = new Vector2(0f, 0f);
+                yield break;
+            }
         }              
     }
 }

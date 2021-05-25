@@ -12,6 +12,10 @@ public class CellGroup
         get => cellGroupOwner;
         set => cellGroupOwner = value;
     }
+    public List<GameObject> CellGroupList
+    {
+        get => cellGroup;
+    }
 
     public CellGroup(string cellGroupOwner)
     {

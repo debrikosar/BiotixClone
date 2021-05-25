@@ -7,6 +7,9 @@ public class SubcellScript : MonoBehaviour
     private string subcellOwner;
     private GameObject subcellTarget;
 
+    [SerializeField]
+    private float subcellSpeed = 0.02f;
+
     public string SubcellOwner
     {
         get => subcellOwner;
@@ -50,9 +53,9 @@ public class SubcellScript : MonoBehaviour
     {
         while (true) 
         {
-            transform.position = Vector3.MoveTowards(transform.position, direction, 0.01f);
+            transform.position = Vector3.MoveTowards(transform.position, direction, subcellSpeed);
 
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(subcellSpeed/2);
         }
     }
 }
