@@ -115,8 +115,9 @@ public class CellScript : MonoBehaviour
         }
 
         cellCount-=damage;
+
         if (cellCount != 0)
-            cellText.text = cellCount.ToString();
+            UpdateCellText();
         else
             cellText.text = "";
     }
@@ -130,6 +131,9 @@ public class CellScript : MonoBehaviour
         if (!isProducing)
             StartCoroutine(GenerateCells());        
     }
-
     
+    public void UpdateCellText()
+    {
+        cellText.text = cellCount.ToString();
+    }
 }

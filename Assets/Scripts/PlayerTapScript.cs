@@ -94,6 +94,7 @@ public class PlayerTapScript : MonoBehaviour
 
                     //collision.gameObject.GetComponent<CellScript>().CellHit("Green", cell.GetComponent<CellScript>().CellCount / 2);
                     tempCellScript.CellCount = tempCellScript.CellCount / 2;
+                    tempCellScript.UpdateCellText();
                 }
 
                 ResetActiveCells();
