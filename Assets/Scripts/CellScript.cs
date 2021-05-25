@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class CellScript : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class CellScript : MonoBehaviour
     private SpriteRenderer cellSpriteRenderer;
     private SpriteRenderer cellFillingSpriteRenderer;
     private TextMeshPro cellText;
+
+    public static event Action<GameObject, string, string> OnChangeCellOwner;
 
     public bool IsActive
     {
@@ -115,10 +118,7 @@ public class CellScript : MonoBehaviour
     {
         if (cellCount < 2)
         {
-            cellOwner = subcellOwner;
-            DefineCellColor();
-            if(!isProducing)
-                StartCoroutine(GenerateCells());
+            ChangeCellOwner(subcellOwner);
         }
 
         cellCount-=damage;
@@ -126,5 +126,15 @@ public class CellScript : MonoBehaviour
             cellText.text = cellCount.ToString();
         else
             cellText.text = "";
+    }
+
+    public void ChangeCellOwner(string subcellOwner)
+    {
+        OnChangeCellOwner?.Invoke(this.gameObject, cellOwner, subcellOwner);
+
+        cellOwner = subcellOwner;
+        DefineCellColor();
+        if (!isProducing)
+            StartCoroutine(GenerateCells());        
     }
 }

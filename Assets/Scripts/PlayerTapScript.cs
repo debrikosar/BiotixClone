@@ -17,7 +17,7 @@ public class PlayerTapScript : MonoBehaviour
     private int collisionsCheckPost;
 
     [SerializeField]
-    GameObject subcellPrefab;
+    private GameObject subcellPrefab;
 
     // Start is called before the first frame update
     void Start()
