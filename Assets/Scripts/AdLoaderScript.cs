@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-
 public class AdLoaderScript : MonoBehaviour
 {
     string gameId = "4143547";
-    bool testMode = false;
 
-    void Start()
+    void Awake()
     {
-        Advertisement.Initialize(gameId, testMode);
+        Advertisement.Initialize(gameId);
         StartCoroutine(ShowAdd());
     }
 

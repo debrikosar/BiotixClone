@@ -38,15 +38,17 @@ public class CellsStorageScript : MonoBehaviour
 
         foreach(CellGroup cellGroup in cellGroups)
         {
-            if(cellGroup.GetCellGroupSize() == cellStorage.Count)
+            /*if(cellGroup.GetCellGroupSize() == cellStorage.Count)
             {
                 if(cellGroup.CellGroupOwner == "Green")
                     SceneManager.LoadScene(1);
                 else
                     SceneManager.LoadScene(2);
-            }
+            }*/
             if(cellGroup.CellGroupOwner == "Green" && cellGroup.GetCellGroupSize() == 0)
                 SceneManager.LoadScene(2);
+            else if(cellGroup.CellGroupOwner == "Blue" && cellGroup.GetCellGroupSize() == 0)
+                SceneManager.LoadScene(1);
         }
     }
 

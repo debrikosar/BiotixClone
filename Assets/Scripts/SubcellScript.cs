@@ -7,6 +7,8 @@ public class SubcellScript : MonoBehaviour
     private string subcellOwner;
     private GameObject subcellTarget;
 
+    private SpriteRenderer subcellRenderer;
+
     [SerializeField]
     private float subcellSpeed = 0.02f;
 
@@ -22,6 +24,23 @@ public class SubcellScript : MonoBehaviour
         set => subcellTarget = value;
     }
 
+    private void Start()
+    {
+        subcellRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        switch (subcellOwner)
+        {
+            case "Red":
+                subcellRenderer.color = Color.red;
+                break;
+            case "Blue":
+                subcellRenderer.color = Color.blue;
+                break;
+            case "Green":
+                subcellRenderer.color = Color.green;
+                break;
+        }
+    }
 
     // Update is called once per frame
     private void OnCollisionEnter2D(Collision2D collision)
