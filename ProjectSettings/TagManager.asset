@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cell
   - Subcell
+  - LevelTracker
   layers:
   - Default
   - TransparentFX

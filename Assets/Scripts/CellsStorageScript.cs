@@ -68,22 +68,27 @@ public class CellsStorageScript : MonoBehaviour
 
             foreach (CellGroup cellGroup in cellGroups)
             {
+                randomDefender = null;
                 if (cellGroup.CellGroupOwner != "Green" && cellGroup.CellGroupOwner != "")
                 {
                     randomAttacker = cellGroup.CellGroupList[Random.Range(0, cellGroup.CellGroupList.Count)];
 
-                    switch(Random.Range(0, 2))
+                    while (randomDefender == null)
                     {
-                        case 0:
-                            targetGroup = cellGroups.Find(item => item.CellGroupOwner == "Green").CellGroupList;
-                            randomDefender = targetGroup[Random.Range(0, targetGroup.Count)];
-                            break;
-                        default:
-                            targetGroup = cellGroups.Find(item => item.CellGroupOwner == "").CellGroupList;
-                            randomDefender = targetGroup[Random.Range(0, targetGroup.Count)];
-                            break;
+                        switch (Random.Range(0, 4))
+                        {
+                            case 0:
+                                targetGroup = cellGroups.Find(item => item.CellGroupOwner == "Green").CellGroupList;
+                                if (targetGroup.Count != 0)
+                                    randomDefender = targetGroup[Random.Range(0, targetGroup.Count)];
+                                break;
+                            default:
+                                targetGroup = cellGroups.Find(item => item.CellGroupOwner == "").CellGroupList;
+                                if (targetGroup.Count != 0)
+                                    randomDefender = targetGroup[Random.Range(0, targetGroup.Count)];
+                                break;
+                        }
                     }
-
                     StartCoroutine(SubcellSpawning(randomAttacker.GetComponent<CellScript>().CellCount/2, randomAttacker.transform.position, randomDefender, cellGroup.CellGroupOwner));
                     randomAttacker.GetComponent<CellScript>().CellCount = randomAttacker.GetComponent<CellScript>().CellCount / 2;
                 }

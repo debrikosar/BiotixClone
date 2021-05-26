@@ -138,7 +138,7 @@ public class CellScript : MonoBehaviour
     public void UpdateCellText()
     {
         if (cellCount != 0)
-            UpdateCellText();
+            cellText.text = cellCount.ToString();
         else
             cellText.text = "";
     }

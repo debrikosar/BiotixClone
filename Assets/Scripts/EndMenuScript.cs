@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class EndMenuScript : MonoBehaviour
-{    
+{
+    private GameObject activeLevelTracker;
+
     public void RestartPressed()
     {
         SceneManager.LoadScene(0);
@@ -12,6 +14,8 @@ public class EndMenuScript : MonoBehaviour
 
     public void ContinuePressed()
     {
+        activeLevelTracker = GameObject.FindGameObjectWithTag("LevelTracker");
+        activeLevelTracker.GetComponent<LevelTracker>().ActiveLevel++;
         SceneManager.LoadScene(0);
     }
 }
