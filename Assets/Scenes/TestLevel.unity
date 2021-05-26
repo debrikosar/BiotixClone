@@ -5390,10 +5390,70 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 374669664902514820, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669664902514820, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669664902514820, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 694670461}
+    - target: {fileID: 374669664902514820, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669664902514820, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SummonMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669664902514820, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameMenuScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669664902514820, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669665133776277, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669665133776277, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669665133776277, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 694670461}
+    - target: {fileID: 374669665133776277, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669665133776277, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669665133776277, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameMenuScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 374669665133776277, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 374669665139716859, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 694670461}
+    - target: {fileID: 374669665139716859, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitApp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a8345689497c7b4b8065ee30420c8da, type: 3}
 --- !u!1001 &8274523342708982863

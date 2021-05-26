@@ -6,7 +6,7 @@ using UnityEngine.Advertisements;
 
 public class AdLoaderScript : MonoBehaviour
 {
-    string gameId = "4143423";
+    string gameId = "4143547";
     bool testMode = true;
 
     void Start()
@@ -17,11 +17,9 @@ public class AdLoaderScript : MonoBehaviour
 
     public void ShowInterstitialAd()
     {
-        // Check if UnityAds ready before calling Show method:
         if (Advertisement.IsReady())
         {
             Advertisement.Show("video");
-            // Replace mySurfacingId with the ID of the placements you wish to display as shown in your Unity Dashboard.
         }
         else
         {
@@ -31,7 +29,7 @@ public class AdLoaderScript : MonoBehaviour
 
     IEnumerator ShowAdd()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1f);
 
         ShowInterstitialAd();
     }
